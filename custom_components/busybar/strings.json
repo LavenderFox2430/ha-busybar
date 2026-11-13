@@ -1,0 +1,682 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Connect to your BUSY Bar",
+        "description": "Enter the address of the bar on your network. If you have restricted its HTTP API to key access, enter that access key (or an API token) as well.",
+        "data": {
+          "host": "Host",
+          "token": "Access key or API token",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "The bar's IP address or hostname.",
+          "token": "Leave empty if the bar's Wi-Fi API access is set to open, or if you reach it over USB.",
+          "port": "Leave at {default_port} unless you reach the bar through a proxy."
+        }
+      },
+      "discovery_confirm": {
+        "title": "Add {name}",
+        "description": "A BUSY Bar was found at {host}. It needs an access key or API token before Home Assistant can talk to it.",
+        "data": {
+          "token": "Access key or API token"
+        },
+        "data_description": {
+          "token": "Set this on the bar under Settings, API access."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate your BUSY Bar",
+        "description": "The bar at {host} rejected the stored access key. Enter the current key or a fresh API token.",
+        "data": {
+          "token": "Access key or API token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the bar at that address.",
+      "invalid_auth": "The bar rejected that access key or token.",
+      "not_busybar": "That address answered, but it does not look like a BUSY Bar."
+    },
+    "abort": {
+      "already_configured": "This BUSY Bar is already set up.",
+      "not_busybar": "That device is not a BUSY Bar.",
+      "reauth_successful": "Reauthentication was successful.",
+      "reconfigure_successful": "The BUSY Bar was reconfigured.",
+      "wrong_device": "That address belongs to a different BUSY Bar than the one being reconfigured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "BUSY Bar options",
+        "data": {
+          "scan_interval": "Polling interval",
+          "app_name": "Application name",
+          "default_priority": "Default draw priority",
+          "text_font": "Message font",
+          "text_color": "Message colour",
+          "text_timeout": "Message timeout"
+        },
+        "data_description": {
+          "scan_interval": "How often to read state from the bar.",
+          "app_name": "Every element this integration draws is owned by this name, so clearing the display leaves other apps' elements alone.",
+          "default_priority": "Used when a draw service call does not set its own. A running BUSY session holds priority 90, so go above that to draw over one.",
+          "text_font": "Font used by the Front message and Back message entities.",
+          "text_color": "Colour used by the message entities, as #RRGGBB or #RRGGBBAA.",
+          "text_timeout": "How long a message from the message entities stays on screen. Zero keeps it there until it is cleared."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "timer_running": {
+        "name": "Session active"
+      },
+      "timer_paused": {
+        "name": "Session paused"
+      },
+      "charging": {
+        "name": "Charging"
+      },
+      "wifi_connected": {
+        "name": "Wi-Fi"
+      }
+    },
+    "button": {
+      "busy": {
+        "name": "BUSY"
+      },
+      "custom": {
+        "name": "Custom session"
+      },
+      "off": {
+        "name": "Power off"
+      },
+      "clear_display": {
+        "name": "Clear display"
+      },
+      "stop_audio": {
+        "name": "Stop audio"
+      },
+      "start": {
+        "name": "Start"
+      },
+      "ok": {
+        "name": "OK key"
+      },
+      "back": {
+        "name": "Back key"
+      },
+      "up": {
+        "name": "Up key"
+      },
+      "down": {
+        "name": "Down key"
+      },
+      "apps": {
+        "name": "Apps key"
+      },
+      "settings": {
+        "name": "Settings key"
+      }
+    },
+    "camera": {
+      "screen_front": {
+        "name": "Front display"
+      },
+      "screen_back": {
+        "name": "Back display"
+      }
+    },
+    "number": {
+      "brightness": {
+        "name": "Brightness"
+      },
+      "volume": {
+        "name": "Volume"
+      }
+    },
+    "select": {
+      "brightness_mode": {
+        "name": "Brightness mode",
+        "state": {
+          "auto": "Automatic",
+          "manual": "Manual"
+        }
+      }
+    },
+    "sensor": {
+      "battery_charge": {
+        "name": "Battery"
+      },
+      "power_state": {
+        "name": "Power state",
+        "state": {
+          "discharging": "Discharging",
+          "charging": "Charging",
+          "charged": "Charged"
+        }
+      },
+      "battery_voltage": {
+        "name": "Battery voltage"
+      },
+      "battery_current": {
+        "name": "Battery current"
+      },
+      "usb_voltage": {
+        "name": "USB voltage"
+      },
+      "timer_state": {
+        "name": "Session type",
+        "state": {
+          "not_started": "Idle",
+          "infinite": "Open ended",
+          "simple": "Countdown",
+          "interval": "Intervals"
+        }
+      },
+      "timer_time_left": {
+        "name": "Time left"
+      },
+      "timer_ends_at": {
+        "name": "Session ends"
+      },
+      "timer_interval": {
+        "name": "Interval"
+      },
+      "wifi_state": {
+        "name": "Wi-Fi state",
+        "state": {
+          "unknown": "Unknown",
+          "disconnected": "Disconnected",
+          "connected": "Connected",
+          "connecting": "Connecting",
+          "disconnecting": "Disconnecting",
+          "reconnecting": "Reconnecting"
+        }
+      },
+      "wifi_signal": {
+        "name": "Wi-Fi signal"
+      },
+      "wifi_ssid": {
+        "name": "Wi-Fi network"
+      },
+      "ip_address": {
+        "name": "IP address"
+      },
+      "uptime": {
+        "name": "Last boot"
+      }
+    },
+    "switch": {
+      "smart_home_switch": {
+        "name": "Smart home switch"
+      }
+    },
+    "text": {
+      "message_front": {
+        "name": "Front message"
+      },
+      "message_back": {
+        "name": "Back message"
+      }
+    }
+  },
+  "selector": {
+    "display": {
+      "options": {
+        "front": "Front (72x16 LED matrix)",
+        "back": "Back (160x80 screen)"
+      }
+    },
+    "font": {
+      "options": {
+        "tiny": "Tiny",
+        "small": "Small",
+        "normal": "Normal",
+        "condensed": "Condensed",
+        "bold": "Bold",
+        "large": "Large",
+        "extra_large": "Extra large",
+        "global": "Global",
+        "superscript": "Superscript"
+      }
+    },
+    "align": {
+      "options": {
+        "top_left": "Top left",
+        "top_mid": "Top centre",
+        "top_right": "Top right",
+        "mid_left": "Middle left",
+        "center": "Centre",
+        "mid_right": "Middle right",
+        "bottom_left": "Bottom left",
+        "bottom_mid": "Bottom centre",
+        "bottom_right": "Bottom right"
+      }
+    },
+    "direction": {
+      "options": {
+        "time_left": "Count down to it",
+        "time_since": "Count up from it"
+      }
+    },
+    "show_hours": {
+      "options": {
+        "when_non_zero": "Only when there are hours",
+        "always": "Always"
+      }
+    },
+    "fill": {
+      "options": {
+        "none": "No fill",
+        "solid": "Solid",
+        "gradient_h": "Horizontal gradient",
+        "gradient_v": "Vertical gradient"
+      }
+    },
+    "key": {
+      "options": {
+        "up": "Up",
+        "down": "Down",
+        "ok": "OK",
+        "back": "Back",
+        "start": "Start",
+        "busy": "BUSY",
+        "custom": "Custom",
+        "off": "Off",
+        "apps": "Apps",
+        "settings": "Settings"
+      }
+    },
+    "slot": {
+      "options": {
+        "busy": "BUSY profile",
+        "custom": "Custom profile"
+      }
+    }
+  },
+  "services": {
+    "draw_text": {
+      "name": "Draw text",
+      "description": "Draws a line of text on the bar. Characters the bar's bitmap fonts cannot render are folded to their closest ASCII equivalent.",
+      "fields": {
+        "text": {
+          "name": "Text",
+          "description": "The text to draw."
+        },
+        "display": {
+          "name": "Display",
+          "description": "Which of the two panels to draw on."
+        },
+        "font": {
+          "name": "Font",
+          "description": "Which built-in font to use."
+        },
+        "color": {
+          "name": "Colour",
+          "description": "Text colour as #RRGGBB or #RRGGBBAA. Defaults to opaque white."
+        },
+        "align": {
+          "name": "Alignment",
+          "description": "Which point of the text is placed at the coordinates."
+        },
+        "x": {
+          "name": "X",
+          "description": "Horizontal position of the anchor point. Defaults to the spot the alignment implies."
+        },
+        "y": {
+          "name": "Y",
+          "description": "Vertical position of the anchor point. Defaults to the spot the alignment implies."
+        },
+        "width": {
+          "name": "Width",
+          "description": "Width of the text box in pixels. Defaults to the panel width when scrolling."
+        },
+        "scroll": {
+          "name": "Scroll",
+          "description": "Scroll text that is wider than its box. Turn this off for a short label that should sit still."
+        },
+        "scroll_rate": {
+          "name": "Scroll rate",
+          "description": "Scroll speed in pixels per minute."
+        },
+        "scroll_start_delay": {
+          "name": "Scroll start delay",
+          "description": "Pause before scrolling begins, in milliseconds."
+        },
+        "scroll_repeat_delay": {
+          "name": "Scroll repeat delay",
+          "description": "Pause between scroll passes, in milliseconds."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Seconds to keep the text on screen. Zero or empty keeps it until cleared."
+        },
+        "display_until": {
+          "name": "Display until",
+          "description": "Hide the text at this time instead of after a timeout. A datetime or Unix seconds."
+        },
+        "z_index": {
+          "name": "Z-index",
+          "description": "Higher numbers draw on top of lower ones."
+        },
+        "element_id": {
+          "name": "Element ID",
+          "description": "Reuse an ID to replace that element; use different IDs to stack several on screen at once."
+        },
+        "priority": {
+          "name": "Priority",
+          "description": "1 to 100. The bar only accepts a draw whose priority is at least that of the running app: built-in apps are 10, an active BUSY session is 90."
+        },
+        "led_color": {
+          "name": "LED colour",
+          "description": "Blink the status LED this colour, as #RRGGBB or #RRGGBBAA."
+        },
+        "clear_first": {
+          "name": "Clear first",
+          "description": "Remove everything this integration has drawn before drawing this."
+        }
+      }
+    },
+    "draw_countdown": {
+      "name": "Draw countdown",
+      "description": "Draws a clock that the bar ticks on its own, so it stays smooth without Home Assistant sending updates.",
+      "fields": {
+        "timestamp": {
+          "name": "Target time",
+          "description": "The moment to count to or from. A datetime or Unix seconds."
+        },
+        "direction": {
+          "name": "Direction",
+          "description": "Whether to count down to the target time or up from it."
+        },
+        "show_hours": {
+          "name": "Show hours",
+          "description": "Whether the hours position is always shown."
+        },
+        "display": {
+          "name": "Display",
+          "description": "Which panel to draw on."
+        },
+        "color": {
+          "name": "Colour",
+          "description": "Digit colour."
+        },
+        "align": {
+          "name": "Alignment",
+          "description": "Anchor point of the clock."
+        },
+        "x": {
+          "name": "X",
+          "description": "Horizontal anchor position."
+        },
+        "y": {
+          "name": "Y",
+          "description": "Vertical anchor position."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Seconds to keep the clock on screen."
+        },
+        "display_until": {
+          "name": "Display until",
+          "description": "Hide the clock at this time."
+        },
+        "z_index": {
+          "name": "Z-index",
+          "description": "Draw order."
+        },
+        "element_id": {
+          "name": "Element ID",
+          "description": "Identifier to draw under."
+        },
+        "priority": {
+          "name": "Priority",
+          "description": "Draw priority, 1 to 100."
+        },
+        "led_color": {
+          "name": "LED colour",
+          "description": "Blink the status LED."
+        },
+        "clear_first": {
+          "name": "Clear first",
+          "description": "Clear this integration's elements first."
+        }
+      }
+    },
+    "draw_rectangle": {
+      "name": "Draw rectangle",
+      "description": "Draws a box, useful as a progress bar or as a backdrop behind text.",
+      "fields": {
+        "width": {
+          "name": "Width",
+          "description": "Width in pixels."
+        },
+        "height": {
+          "name": "Height",
+          "description": "Height in pixels."
+        },
+        "display": {
+          "name": "Display",
+          "description": "Which panel to draw on."
+        },
+        "fill": {
+          "name": "Fill",
+          "description": "Fill style."
+        },
+        "fill_colors": {
+          "name": "Fill colours",
+          "description": "One colour for a solid fill, two for a gradient."
+        },
+        "radius": {
+          "name": "Corner radius",
+          "description": "Corner radius in pixels."
+        },
+        "border_width": {
+          "name": "Border width",
+          "description": "Border width in pixels."
+        },
+        "border_color": {
+          "name": "Border colour",
+          "description": "Border colour."
+        },
+        "align": {
+          "name": "Alignment",
+          "description": "Anchor point of the box."
+        },
+        "x": {
+          "name": "X",
+          "description": "Horizontal anchor position."
+        },
+        "y": {
+          "name": "Y",
+          "description": "Vertical anchor position."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Seconds to keep it on screen."
+        },
+        "display_until": {
+          "name": "Display until",
+          "description": "Hide it at this time."
+        },
+        "z_index": {
+          "name": "Z-index",
+          "description": "Draw order."
+        },
+        "element_id": {
+          "name": "Element ID",
+          "description": "Identifier to draw under."
+        },
+        "priority": {
+          "name": "Priority",
+          "description": "Draw priority, 1 to 100."
+        },
+        "led_color": {
+          "name": "LED colour",
+          "description": "Blink the status LED."
+        },
+        "clear_first": {
+          "name": "Clear first",
+          "description": "Clear this integration's elements first."
+        }
+      }
+    },
+    "draw_image": {
+      "name": "Draw image",
+      "description": "Draws an image or animation, either one of the bar's stock assets or a file uploaded to this integration's asset folder.",
+      "fields": {
+        "stock_path": {
+          "name": "Stock path",
+          "description": "Path to a stock asset on the bar, which must start with shared/."
+        },
+        "path": {
+          "name": "Asset path",
+          "description": "Path to a file in this integration's own asset folder on the bar."
+        },
+        "animation": {
+          "name": "Animation",
+          "description": "Treat the asset as an animation rather than a still image."
+        },
+        "loop": {
+          "name": "Loop",
+          "description": "Repeat the animation."
+        },
+        "section": {
+          "name": "Section",
+          "description": "Named section of the animation to play."
+        },
+        "opacity": {
+          "name": "Opacity",
+          "description": "Opacity in percent."
+        },
+        "display": {
+          "name": "Display",
+          "description": "Which panel to draw on."
+        },
+        "align": {
+          "name": "Alignment",
+          "description": "Anchor point of the image."
+        },
+        "x": {
+          "name": "X",
+          "description": "Horizontal anchor position."
+        },
+        "y": {
+          "name": "Y",
+          "description": "Vertical anchor position."
+        },
+        "timeout": {
+          "name": "Timeout",
+          "description": "Seconds to keep it on screen."
+        },
+        "display_until": {
+          "name": "Display until",
+          "description": "Hide it at this time."
+        },
+        "z_index": {
+          "name": "Z-index",
+          "description": "Draw order."
+        },
+        "element_id": {
+          "name": "Element ID",
+          "description": "Identifier to draw under."
+        },
+        "priority": {
+          "name": "Priority",
+          "description": "Draw priority, 1 to 100."
+        },
+        "led_color": {
+          "name": "LED colour",
+          "description": "Blink the status LED."
+        },
+        "clear_first": {
+          "name": "Clear first",
+          "description": "Clear this integration's elements first."
+        }
+      }
+    },
+    "draw": {
+      "name": "Draw raw elements",
+      "description": "Sends a list of display elements straight to the bar, for layered scenes and for element types the other services do not wrap.",
+      "fields": {
+        "elements": {
+          "name": "Elements",
+          "description": "A list of display elements as the bar's HTTP API defines them: text, image, animation, countdown, rectangle or xpmbitmap."
+        },
+        "priority": {
+          "name": "Priority",
+          "description": "Draw priority, 1 to 100."
+        },
+        "led_color": {
+          "name": "LED colour",
+          "description": "Blink the status LED."
+        },
+        "clear_first": {
+          "name": "Clear first",
+          "description": "Clear this integration's elements first."
+        }
+      }
+    },
+    "clear": {
+      "name": "Clear display",
+      "description": "Removes elements this integration drew.",
+      "fields": {
+        "element_ids": {
+          "name": "Element IDs",
+          "description": "Only remove these elements. Leave empty to remove all of them."
+        },
+        "everything": {
+          "name": "Everything",
+          "description": "Also remove elements drawn by other apps and scripts through the bar's draw API."
+        }
+      }
+    },
+    "play_sound": {
+      "name": "Play sound",
+      "description": "Plays a sound file on the bar.",
+      "fields": {
+        "stock_path": {
+          "name": "Stock path",
+          "description": "Path to a stock sound on the bar, which must start with shared/."
+        },
+        "path": {
+          "name": "Asset path",
+          "description": "Path to a sound in this integration's own asset folder on the bar."
+        }
+      }
+    },
+    "press_key": {
+      "name": "Press key",
+      "description": "Sends a single key press, exactly as pressing the button on the bar would.",
+      "fields": {
+        "key": {
+          "name": "Key",
+          "description": "Which key to press."
+        }
+      }
+    },
+    "start_timer": {
+      "name": "Start session",
+      "description": "Starts a BUSY session from one of the bar's two profile slots.",
+      "fields": {
+        "slot": {
+          "name": "Profile",
+          "description": "Which stored profile to run."
+        },
+        "duration": {
+          "name": "Duration",
+          "description": "Run a plain countdown for this long instead of the profile's own timer settings."
+        }
+      }
+    },
+    "stop_timer": {
+      "name": "Stop session",
+      "description": "Ends the running session and returns the bar to idle."
+    }
+  }
+}

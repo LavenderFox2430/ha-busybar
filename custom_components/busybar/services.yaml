@@ -1,0 +1,575 @@
+draw_text:
+  target:
+    device:
+      integration: busybar
+  fields:
+    text:
+      required: true
+      example: Meeting until 3pm
+      selector:
+        text:
+    display:
+      default: front
+      selector:
+        select:
+          translation_key: display
+          options:
+            - front
+            - back
+    font:
+      default: normal
+      selector:
+        select:
+          translation_key: font
+          options:
+            - tiny
+            - small
+            - normal
+            - condensed
+            - bold
+            - large
+            - extra_large
+            - global
+            - superscript
+    color:
+      example: "#FF8800FF"
+      selector:
+        text:
+    align:
+      default: center
+      selector:
+        select:
+          translation_key: align
+          options:
+            - top_left
+            - top_mid
+            - top_right
+            - mid_left
+            - center
+            - mid_right
+            - bottom_left
+            - bottom_mid
+            - bottom_right
+    x:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    y:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    width:
+      selector:
+        number:
+          min: 1
+          max: 4095
+          mode: box
+    scroll:
+      default: true
+      selector:
+        boolean:
+    scroll_rate:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 60000
+          unit_of_measurement: px/min
+          mode: box
+    scroll_start_delay:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 60000
+          unit_of_measurement: ms
+          mode: box
+    scroll_repeat_delay:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 60000
+          unit_of_measurement: ms
+          mode: box
+    timeout:
+      selector:
+        number:
+          min: 0
+          max: 86400
+          unit_of_measurement: seconds
+          mode: box
+    display_until:
+      advanced: true
+      selector:
+        text:
+    z_index:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 1000
+          mode: box
+    element_id:
+      advanced: true
+      default: ha_message
+      selector:
+        text:
+    priority:
+      advanced: true
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+    led_color:
+      example: "#FF0000FF"
+      selector:
+        text:
+    clear_first:
+      advanced: true
+      default: false
+      selector:
+        boolean:
+
+draw_countdown:
+  target:
+    device:
+      integration: busybar
+  fields:
+    timestamp:
+      required: true
+      example: "2026-09-28 17:30:00"
+      selector:
+        text:
+    direction:
+      default: time_left
+      selector:
+        select:
+          translation_key: direction
+          options:
+            - time_left
+            - time_since
+    show_hours:
+      default: when_non_zero
+      selector:
+        select:
+          translation_key: show_hours
+          options:
+            - when_non_zero
+            - always
+    display:
+      default: front
+      selector:
+        select:
+          translation_key: display
+          options:
+            - front
+            - back
+    color:
+      example: "#00FF00FF"
+      selector:
+        text:
+    align:
+      default: center
+      selector:
+        select:
+          translation_key: align
+          options:
+            - top_left
+            - top_mid
+            - top_right
+            - mid_left
+            - center
+            - mid_right
+            - bottom_left
+            - bottom_mid
+            - bottom_right
+    x:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    y:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    timeout:
+      selector:
+        number:
+          min: 0
+          max: 86400
+          unit_of_measurement: seconds
+          mode: box
+    display_until:
+      advanced: true
+      selector:
+        text:
+    z_index:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 1000
+          mode: box
+    element_id:
+      advanced: true
+      default: ha_countdown
+      selector:
+        text:
+    priority:
+      advanced: true
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+    led_color:
+      selector:
+        text:
+    clear_first:
+      advanced: true
+      default: false
+      selector:
+        boolean:
+
+draw_rectangle:
+  target:
+    device:
+      integration: busybar
+  fields:
+    width:
+      required: true
+      example: 72
+      selector:
+        number:
+          min: 1
+          max: 4095
+          mode: box
+    height:
+      required: true
+      example: 4
+      selector:
+        number:
+          min: 1
+          max: 4095
+          mode: box
+    display:
+      default: front
+      selector:
+        select:
+          translation_key: display
+          options:
+            - front
+            - back
+    fill:
+      default: solid
+      selector:
+        select:
+          translation_key: fill
+          options:
+            - none
+            - solid
+            - gradient_h
+            - gradient_v
+    fill_colors:
+      example: '["#FF0000FF", "#0000FFFF"]'
+      selector:
+        object:
+    radius:
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: box
+    border_width:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: box
+    border_color:
+      advanced: true
+      selector:
+        text:
+    align:
+      default: center
+      selector:
+        select:
+          translation_key: align
+          options:
+            - top_left
+            - top_mid
+            - top_right
+            - mid_left
+            - center
+            - mid_right
+            - bottom_left
+            - bottom_mid
+            - bottom_right
+    x:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    y:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    timeout:
+      selector:
+        number:
+          min: 0
+          max: 86400
+          unit_of_measurement: seconds
+          mode: box
+    display_until:
+      advanced: true
+      selector:
+        text:
+    z_index:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 1000
+          mode: box
+    element_id:
+      advanced: true
+      default: ha_rectangle
+      selector:
+        text:
+    priority:
+      advanced: true
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+    led_color:
+      selector:
+        text:
+    clear_first:
+      advanced: true
+      default: false
+      selector:
+        boolean:
+
+draw_image:
+  target:
+    device:
+      integration: busybar
+  fields:
+    stock_path:
+      example: shared/images/heart.png
+      selector:
+        text:
+    path:
+      example: logo.png
+      selector:
+        text:
+    animation:
+      default: false
+      selector:
+        boolean:
+    loop:
+      selector:
+        boolean:
+    section:
+      advanced: true
+      selector:
+        text:
+    opacity:
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+          mode: slider
+    display:
+      default: front
+      selector:
+        select:
+          translation_key: display
+          options:
+            - front
+            - back
+    align:
+      default: center
+      selector:
+        select:
+          translation_key: align
+          options:
+            - top_left
+            - top_mid
+            - top_right
+            - mid_left
+            - center
+            - mid_right
+            - bottom_left
+            - bottom_mid
+            - bottom_right
+    x:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    y:
+      selector:
+        number:
+          min: -4096
+          max: 4095
+          mode: box
+    timeout:
+      selector:
+        number:
+          min: 0
+          max: 86400
+          unit_of_measurement: seconds
+          mode: box
+    display_until:
+      advanced: true
+      selector:
+        text:
+    z_index:
+      advanced: true
+      selector:
+        number:
+          min: 0
+          max: 1000
+          mode: box
+    element_id:
+      advanced: true
+      default: ha_image
+      selector:
+        text:
+    priority:
+      advanced: true
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+    led_color:
+      selector:
+        text:
+    clear_first:
+      advanced: true
+      default: false
+      selector:
+        boolean:
+
+draw:
+  target:
+    device:
+      integration: busybar
+  fields:
+    elements:
+      required: true
+      example: >-
+        [{"id": "bg", "type": "rectangle", "display": "front", "align":
+        "top_left", "x": 0, "y": 0, "width": 72, "height": 16, "fill": "solid",
+        "fill_colors": ["#001133FF"], "border_width": 0}, {"id": "label",
+        "type": "text", "display": "front", "align": "center", "x": 36, "y": 8,
+        "text": "DEPLOYING", "font": "small", "color": "#FFCC00FF", "z_index":
+        1}]
+      selector:
+        object:
+    priority:
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+    led_color:
+      selector:
+        text:
+    clear_first:
+      default: false
+      selector:
+        boolean:
+
+clear:
+  target:
+    device:
+      integration: busybar
+  fields:
+    element_ids:
+      example: '["ha_message"]'
+      selector:
+        object:
+    everything:
+      default: false
+      selector:
+        boolean:
+
+play_sound:
+  target:
+    device:
+      integration: busybar
+  fields:
+    stock_path:
+      example: shared/sounds/beep.snd
+      selector:
+        text:
+    path:
+      example: alert.snd
+      selector:
+        text:
+
+press_key:
+  target:
+    device:
+      integration: busybar
+  fields:
+    key:
+      required: true
+      selector:
+        select:
+          translation_key: key
+          options:
+            - up
+            - down
+            - ok
+            - back
+            - start
+            - busy
+            - custom
+            - "off"
+            - apps
+            - settings
+
+start_timer:
+  target:
+    device:
+      integration: busybar
+  fields:
+    slot:
+      default: busy
+      selector:
+        select:
+          translation_key: slot
+          options:
+            - busy
+            - custom
+    duration:
+      example: "00:25:00"
+      selector:
+        duration:
+
+stop_timer:
+  target:
+    device:
+      integration: busybar
